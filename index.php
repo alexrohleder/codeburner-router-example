@@ -85,7 +85,7 @@ $collector->group([
 
 /**
  * For simple example we will not use the path to determine route patterns, as it will require some server
- * configuration, so simply get the path from query string "path". e.g. localhost/?path=/category
+ * configuration, so simply get the path from query string "path". e.g. localhost/?path=/v1/category
  */
 
 $query = $request->getQueryParams();
