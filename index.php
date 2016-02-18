@@ -29,8 +29,8 @@ $matcher = new Matcher($collector);
 $container = new Container();
 
 /**
- * Let the codeburner container know what exactly request and response
- * to give to our strategy.
+ * Let the codeburner container know what exactly request and response give to our strategy.
+ * We will use the codeburner container to create the strategy and the resources.
  */
 
 $container->bindTo('Codeburner\Router\Strategies\RequestJsonStrategy', 'Psr\Http\Message\RequestInterface', $request);
@@ -44,8 +44,8 @@ $container->bindTo('Codeburner\Router\Strategies\RequestJsonStrategy', 'Psr\Http
 $removedRoutesFromApi = ["make", "edit"];
 
 /**
- * Let's group only because of our default test route "/". And in the future, if more routes
- * must be registered, you just need to add to this group.
+ * Let's group because of our default test route "/" and if in the future more routes
+ * must be registered, you just need to add to these routes to group.
  */
 
 $collector->group([
@@ -71,7 +71,7 @@ $collector->group([
 ])
 
     /**
-     * Our API are on version 1, so prefix all patterns with this.
+     * Our API are on version 1, so prefix all patterns with this identifier.
      */
 
     ->setPrefix('/v1')
@@ -101,8 +101,9 @@ try {
     $response = $route->call([$container, 'make']); // passing a container wrapper to create objects like strategy and controller
 
     /**
-     * Sending our response headers from PSR7 response object definition
-     * implemented in Zend\Diactoros.
+     * Sending our response headers from PSR7 response object implemented in Zend\Diactoros.
+     * In our case no headers are defined on resources, but with RequestJsonStrategy the content-type: application/json
+     * is defined by default, and it is the necessary.
      */
 
     if (!headers_sent()) {
